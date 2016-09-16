@@ -1,0 +1,27 @@
+{
+  "name": "claudia-api-errors",
+  "version": "1.0.0",
+  "description": "API Errors for Claudia API Builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phips28/claudia-api-errors.git"
+  },
+  "keywords": [
+    "claudia",
+    "api",
+    "errors"
+  ],
+  "author": "Philipp Holly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phips28/claudia-api-errors/issues"
+  },
+  "homepage": "https://github.com/phips28/claudia-api-errors#readme",
+  "dependencies": {
+    "http-status": "^0.2.3"
+  }
+}
