@@ -33,10 +33,19 @@ class ApiBuilderError extends Error {
     this.code = code;
   }
 
+  /**
+   * set a custom error template
+   * pattern: https://aws.amazon.com/blogs/compute/error-handling-patterns-in-amazon-api-gateway-and-aws-lambda/
+   * @param customTemplate
+   */
   setCustomTemplate(customTemplate) {
     this.customTemplate = customTemplate;
   }
 
+  /**
+   * use this function to get the config object when building the api endpoint
+   * @returns {{code: int, pattern: string, template: string}}
+   */
   toConfig() {
     return {
       code: this.code,
