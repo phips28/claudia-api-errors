@@ -1,7 +1,5 @@
 'use strict';
 
-const HTTPStatus = require('http-status');
-
 const errorTemplatePlain = '$input.path(\'$.errorMessage\')';
 const errorTemplateDynamic = '#set ($errorMessageObj = $util.parseJson($input.path(\'$.errorMessage\')).data)' +
   '{' +
