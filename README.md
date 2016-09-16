@@ -85,6 +85,33 @@ Response: HTTP/1.1 400 Bad Request - {"message":"Parameter 'name' is too short (
 
 ---
 
+## Override Error Classes
+
+You can create your own error class with a custom template. For more infos about pattern check out this: [AWS error pattern](https://aws.amazon.com/blogs/compute/error-handling-patterns-in-amazon-api-gateway-and-aws-lambda/)
+```javascript
+const ApiErrors = require('claudia-api-errors');
+class CustomBadRequest extends ApiErrors.BadRequest {
+  constructor(data) {
+    super(data);
+    this.setCustomTemplate('$input.path(\'$.errorMessage.customData\')');
+  }
+}   
+
+api.get('/sayMyName/{name}', (request) => {
+  return { message: `Hello ${request.pathParams.name}` };
+}, {
+  success: 200, // optional, defaults to `200`
+  error: {
+    defaultCode: 500, // optional, defaults to `500`
+    additionalErrors: [
+      CustomBadRequest.toConfig(),
+    ],
+  },
+});
+```
+
+---
+
 ## Questions, suggestions? 
 [![Join the chat at https://gitter.im/claudiajs/claudia](https://badges.gitter.im/claudiajs/claudia.svg)](https://gitter.im/claudiajs/claudia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
