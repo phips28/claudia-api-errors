@@ -6,21 +6,13 @@ API Errors for [Claudia API Builder](https://github.com/claudiajs/claudia-api-bu
 
 # Usage
 
-#### 1.1) Install and require the 'claudia-api-errors' module 
+#### 1) Install and require the 'claudia-api-errors' module 
 ```javascript
 npm install claudia-api-errors --save
 ```
 ```javascript
 const ApiErrors = require('claudia-api-errors');
-// e.g.: new ApiErrors.BadRequest()
-```
-
-#### 1.2) OR use the ApiErrors from the ApiBuilder() 
-(module: 'claudia-api-builder') => no extra npm install 'claudia-api-errors'
-```javascript
-const ApiBuilder = require('claudia-api-builder');
-const api = new ApiBuilder();
-// e.g.: new api.ApiErrors.BadRequest()
+// e.g.: new ApiErrors.BadRequest(...)
 ```
 
 #### 2) Define a function/endpoint 
@@ -33,7 +25,7 @@ api.get('/sayMyName/{name}', (request) => {
   error: {
     defaultCode: 500, // optional, defaults to `500`
     additionalErrors: [
-      new ApiErrors.BadRequest().toConfig(),
+      ApiErrors.BadRequest,
       // ...
     ],
   },
@@ -62,7 +54,7 @@ api.get('/sayMyName/{name}', (request) => {
   error: {
     defaultCode: 500, // optional, defaults to `500`
     additionalErrors: [
-      new ApiErrors.BadRequest().toConfig(),
+      ApiErrors.BadRequest,
       // ...
     ],
   },
@@ -91,9 +83,8 @@ You can create your own error class with a custom template. For more infos about
 ```javascript
 const ApiErrors = require('claudia-api-errors');
 class CustomBadRequest extends ApiErrors.BadRequest {
-  constructor(data) {
-    super(data);
-    this.setCustomTemplate('$input.path(\'$.errorMessage.customData\')');
+  static get customTemplate() {
+    return '$input.path(\'$.errorMessage.customData\')';
   }
 }   
 
@@ -104,7 +95,7 @@ api.get('/sayMyName/{name}', (request) => {
   error: {
     defaultCode: 500, // optional, defaults to `500`
     additionalErrors: [
-      CustomBadRequest.toConfig(),
+      CustomBadRequest,
     ],
   },
 });

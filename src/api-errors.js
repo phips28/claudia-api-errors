@@ -21,7 +21,9 @@ const errorTemplateDynamic = '#set ($errorMessageObj = $util.parseJson($input.pa
  *             if you leave it empty it returns: { message: 'Something went wrong' }
  */
 class ApiBuilderError extends Error {
-  constructor(code, data) {
+  constructor(data) {
+    super();
+    const code = this.constructor.code;
     if (!data) {
       data = 'Something went wrong';
     }
@@ -29,175 +31,184 @@ class ApiBuilderError extends Error {
       data = { message: data };
     }
     const serializedData = JSON.stringify(data);
-    super(`{"code":${code},"data":${serializedData}}`);
-    this.code = code;
+    this.message = `{"code":${code},"data":${serializedData}}`;
+  }
+
+  static get code() {
+    return 500; // INTERNAL SERVER ERROR
   }
 
   /**
    * set a custom error template
    * pattern: https://aws.amazon.com/blogs/compute/error-handling-patterns-in-amazon-api-gateway-and-aws-lambda/
-   * @param customTemplate
+   * usage:
+   * class CustomBadRequest extends ApiErrors.BadRequest {
+   *   static get customTemplate() {
+   *     return '$input.path(\'$.errorMessage.customData\')';
+   *   }
+   * }
    */
-  setCustomTemplate(customTemplate) {
-    this.customTemplate = customTemplate;
+  static get customTemplate() {
   }
 
   /**
    * use this function to get the config object when building the api endpoint
    * @returns {{code: int, pattern: string, template: string}}
    */
-  toConfig() {
+  static toConfig() {
+    const code = this.code;
+    const customTemplate = this.customTemplate;
     return {
-      code: this.code,
-      pattern: `^\\{\\"code\\":${this.code}.*`,
-      template: this.customTemplate || errorTemplateDynamic,
+      code,
+      pattern: `^\\{\\"code\\":${code}.*`,
+      template: customTemplate || errorTemplateDynamic
     };
   }
 }
 
 class BadRequest extends ApiBuilderError {
-  constructor(data) {
-    super(400, data);
+  static get code() {
+    return 400;
   }
 }
 class Unauthorized extends ApiBuilderError {
-  constructor(data) {
-    super(401, data);
+  static get code() {
+    return 401;
   }
 }
 class PaymentRequired extends ApiBuilderError {
-  constructor(data) {
-    super(402, data);
+  static get code() {
+    return 402;
   }
 }
 class Forbidden extends ApiBuilderError {
-  constructor(data) {
-    super(403, data);
+  static get code() {
+    return 403;
   }
 }
 class NotFound extends ApiBuilderError {
-  constructor(data) {
-    super(404, data);
+  static get code() {
+    return 404;
   }
 }
 class MethodNotAllowed extends ApiBuilderError {
-  constructor(data) {
-    super(405, data);
+  static get code() {
+    return 405;
   }
 }
 class NotAcceptable extends ApiBuilderError {
-  constructor(data) {
-    super(406, data);
+  static get code() {
+    return 406;
   }
 }
 class ProxyAuthenticationRequired extends ApiBuilderError {
-  constructor(data) {
-    super(407, data);
+  static get code() {
+    return 407;
   }
 }
 class RequestTimeout extends ApiBuilderError {
-  constructor(data) {
-    super(408, data);
+  static get code() {
+    return 408;
   }
 }
 class Conflict extends ApiBuilderError {
-  constructor(data) {
-    super(409, data);
+  static get code() {
+    return 409;
   }
 }
 class Gone extends ApiBuilderError {
-  constructor(data) {
-    super(410, data);
+  static get code() {
+    return 410;
   }
 }
 class LengthRequired extends ApiBuilderError {
-  constructor(data) {
-    super(411, data);
+  static get code() {
+    return 411;
   }
 }
 class PreconditionFailed extends ApiBuilderError {
-  constructor(data) {
-    super(412, data);
+  static get code() {
+    return 412;
   }
 }
 class RequestEntityTooLarge extends ApiBuilderError {
-  constructor(data) {
-    super(413, data);
+  static get code() {
+    return 413;
   }
 }
 class RequestURITooLarge extends ApiBuilderError {
-  constructor(data) {
-    super(414, data);
+  static get code() {
+    return 414;
   }
 }
 class UnsupportedMediaType extends ApiBuilderError {
-  constructor(data) {
-    super(415, data);
+  static get code() {
+    return 415;
   }
 }
 class RequestedRangeNotSatisfiable extends ApiBuilderError {
-  constructor(data) {
-    super(416, data);
+  static get code() {
+    return 416;
   }
 }
 class ExpectationFailed extends ApiBuilderError {
-  constructor(data) {
-    super(417, data);
+  static get code() {
+    return 417;
   }
 }
 class UnprocessableEntity extends ApiBuilderError {
-  constructor(data) {
-    super(422, data);
+  static get code() {
+    return 422;
   }
 }
 class FailedDependency extends ApiBuilderError {
-  constructor(data) {
-    super(424, data);
+  static get code() {
+    return 424;
   }
 }
 class TooManyRequests extends ApiBuilderError {
-  constructor(data) {
-    super(429, data);
+  static get code() {
+    return 429;
   }
 }
 class UnavailableForLegalReasons extends ApiBuilderError {
-  constructor(data) {
-    super(451, data);
+  static get code() {
+    return 451;
   }
 }
 class InternalServerError extends ApiBuilderError {
-  constructor(data) {
-    super(500, data);
+  static get code() {
+    return 500;
   }
 }
 class NotImplemented extends ApiBuilderError {
-  constructor(data) {
-    super(501, data);
+  static get code() {
+    return 501;
   }
 }
 class BadGateway extends ApiBuilderError {
-  constructor(data) {
-    super(502, data);
+  static get code() {
+    return 502;
   }
 }
 class ServiceUnavailable extends ApiBuilderError {
-  constructor(data) {
-    super(503, data);
+  static get code() {
+    return 503;
   }
 }
 class GatewayTimeOut extends ApiBuilderError {
-  constructor(data) {
-    super(504, data);
+  static get code() {
+    return 504;
   }
 }
 class HTTPVersionNotSupported extends ApiBuilderError {
-  constructor(data) {
-    super(505, data);
+  static get code() {
+    return 505;
   }
 }
 class InsufficientStorage extends ApiBuilderError {
-  constructor(data) {
-    super(507, data);
+  static get code() {
+    return 507;
   }
 }
 
