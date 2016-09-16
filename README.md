@@ -83,3 +83,12 @@ Error:
 `curl https://[id].execute-api.us-east-1.amazonaws.com/[stage]/sayMyName/ph` _enter your APIG id and stage_
 Response: HTTP/1.1 400 Bad Request - {"message":"Parameter 'name' is too short (min: 3 chars)"}
 
+---
+
+## Questions, suggestions? 
+[![Join the chat at https://gitter.im/claudiajs/claudia](https://badges.gitter.im/claudiajs/claudia.svg)](https://gitter.im/claudiajs/claudia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+## License
+
+MIT
