@@ -22,6 +22,5 @@
   },
   "homepage": "https://github.com/phips28/claudia-api-errors#readme",
   "dependencies": {
-    "http-status": "^0.2.3"
   }
 }
