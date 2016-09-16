@@ -23,7 +23,7 @@ api.get('/sayMyName/{name}', (request) => {
 }, {
   success: 200, // optional, defaults to `200`
   error: {
-    defaultCode: 500, // optional, defaults to `500`
+    code: 500, // optional, defaults to `500`
     additionalErrors: [
       ApiErrors.BadRequest,
       // ...
@@ -52,7 +52,7 @@ api.get('/sayMyName/{name}', (request) => {
 }, {
   success: 200, // optional, defaults to `200`
   error: {
-    defaultCode: 500, // optional, defaults to `500`
+    code: 500, // optional, defaults to `500`
     additionalErrors: [
       ApiErrors.BadRequest,
       // ...
@@ -93,7 +93,7 @@ api.get('/sayMyName/{name}', (request) => {
 }, {
   success: 200, // optional, defaults to `200`
   error: {
-    defaultCode: 500, // optional, defaults to `500`
+    code: 500, // optional, defaults to `500`
     additionalErrors: [
       CustomBadRequest,
     ],
