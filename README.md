@@ -16,7 +16,7 @@ const ApiErrors = require('claudia-api-errors');
 ```
 
 #### 2) Define a function/endpoint 
-Add some errors to the `additionalErrors` field. Use the `toConfig()` to configure the error.
+Add some errors to the `additionalErrors` field.
 ```javascript
 api.get('/sayMyName/{name}', (request) => {
   return { message: `Hello ${request.pathParams.name}` };
