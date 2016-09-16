@@ -15,12 +15,7 @@
     "api",
     "errors"
   ],
-  "author": "Philipp Holly",
+  "author": "Philipp Holly <office@pholly.at> http://pholly.at",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/phips28/claudia-api-errors/issues"
-  },
   "homepage": "https://github.com/phips28/claudia-api-errors#readme",
-  "dependencies": {
-  }
 }
