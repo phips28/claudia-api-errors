@@ -23,7 +23,7 @@ module.exports = {
       data = 'Something went wrong';
     }
     if (typeof data !== 'object') {
-      data = { error: data };
+      data = { message: data };
     }
     const serializedData = JSON.stringify(data);
     return `{"code":${code},"data":${serializedData}}`;
