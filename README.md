@@ -38,9 +38,9 @@ In this case we check if the name length is longer than 2 chars. If not we throw
 api.get('/sayMyName/{name}', (request) => {
   if (request.pathParams.name.length <= 2) {
     throw Error(ApiErrors.getError(ApiErrors.BAD_REQUEST)); 
-    // => default: {"message":"Something went wrong"}
+    // => default: {"error":"Something went wrong"}
     throw new Error(ApiErrors.getError(ApiErrors.BAD_REQUEST, 'Parameter \'name\' is too short (min: 3 chars)'); 
-    // => {"message":"Parameter 'name' is too short (min: 3 chars)"}
+    // => {"error":"Parameter 'name' is too short (min: 3 chars)"}
     throw new Error(ApiErrors.getError(ApiErrors.BAD_REQUEST, { message: 'Parameter \'name\' is too short (min: 3 chars)' }); 
     // => {"message":"Parameter 'name' is too short (min: 3 chars)"}
     // add additional response key:value pairs
